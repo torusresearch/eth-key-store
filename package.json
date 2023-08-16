@@ -1,0 +1,19 @@
+{
+  "name": "eth-keystore",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "hardhat test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "hardhat": "^2.17.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3",
+    "@openzeppelin/merkle-tree": "^1.0.5"
+  }
+}
