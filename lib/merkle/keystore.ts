@@ -7,7 +7,7 @@ import { ethers } from "hardhat";
 export class MerkleKeyStoreFactory implements KeyStoreFactory {
     async deploy(pub_keys: PubKey[], runner: ContractRunner): Promise<KeyStore> {
         const ksFactory = await ethers.getContractFactory("MerkleKeyStore");
-        const t = MerkleKeyStore.compute_tree(pub_keys);
+        const t = MerkleKeyStore.computeTree(pub_keys);
         const ksContract = await ksFactory.deploy(t.root);
 
         const ksAddr = await ksContract.getAddress();
@@ -27,27 +27,27 @@ export class MerkleKeyStore implements KeyStore {
 
     constructor(addr: EthAddress, pub_keys: PubKey[], runner: ContractRunner) {
         this.contract = MerkleKeyStore__factory.connect(addr, runner);
-        this.tree = MerkleKeyStore.compute_tree(pub_keys);
+        this.tree = MerkleKeyStore.computeTree(pub_keys);
     }
 
     async address(): Promise<EthAddress> {
         return await this.contract.getAddress();
     }
 
-    static compute_tree(pub_keys: PubKey[]): StandardMerkleTree<PubKey[]> {
+    static computeTree(pub_keys: PubKey[]): StandardMerkleTree<PubKey[]> {
         const pk_tuples = pub_keys.map(x => [x]);
         const tree = StandardMerkleTree.of(pk_tuples, ['bytes']);
         return tree;
     }
 
-    async set_public_keys(pub_keys: PubKey[]): Promise<void> {
-        const tree = MerkleKeyStore.compute_tree(pub_keys);
+    async setPublicKeys(pub_keys: PubKey[]): Promise<void> {
+        const tree = MerkleKeyStore.computeTree(pub_keys);
         const tx = await this.contract.updateCommitment(tree.root);
         await tx.wait();
         this.tree = tree;
     }
     
-    async contains_key(pk: PubKey): Promise<boolean> {
+    async containsKey(pk: PubKey): Promise<boolean> {
         const proof = await this.generateProof(pk);
         const b = await this.contract.containsKey(pk, proof);
         return b;

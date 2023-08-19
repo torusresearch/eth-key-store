@@ -10,7 +10,7 @@ export interface KeyStoreFactory {
 
 export interface KeyStore {
     address(): Promise<EthAddress>;
-    set_public_keys(public_key: PubKey[]): Promise<void>;
-    contains_key(public_key: PubKey): Promise<boolean>;
+    setPublicKeys(public_key: PubKey[]): Promise<void>;
+    containsKey(public_key: PubKey): Promise<boolean>;
     generateProof(pk: PubKey): Promise<BytesLike>;
 }
