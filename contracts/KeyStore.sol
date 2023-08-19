@@ -7,6 +7,6 @@ interface KeyStore {
      */
     function containsKey(
         bytes memory key,
-        bytes32[] memory proof
+        bytes memory proof
     ) external view returns(bool);
 }

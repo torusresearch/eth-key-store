@@ -9,7 +9,7 @@ contract TestTransactor {
     function transact(
         address keystore,
         bytes memory key,
-        bytes32[] memory proof
+        bytes memory proof
     ) external {
         bool b = KeyStore(keystore).containsKey(key, proof);
         require(b, "invalid key");

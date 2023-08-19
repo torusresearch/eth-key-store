@@ -18,10 +18,11 @@ contract MerkleKeyStore is KeyStore, Ownable {
 
     function containsKey(
         bytes memory key,
-        bytes32[] memory proof
+        bytes memory proof
     ) external view returns(bool) {
+        bytes32[] memory _proof = abi.decode(proof, (bytes32[]));
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(key))));
-        bool valid = MerkleProof.verify(proof, commitment, leaf);
+        bool valid = MerkleProof.verify(_proof, commitment, leaf);
         return valid;
     }
 }

@@ -48,14 +48,15 @@ export class MerkleKeyStore implements KeyStore {
     }
     
     async contains_key(pk: PubKey): Promise<boolean> {
-        const proof = this.tree.getProof([pk]);
+        const proof = await this.generateProof(pk);
         const b = await this.contract.containsKey(pk, proof);
         return b;
     }
 
-    async generateProof(pk: PubKey): Promise<BytesLike[]> {
+    async generateProof(pk: PubKey): Promise<BytesLike> {
         const proof = this.tree.getProof([pk]);
-        return Promise.resolve(proof);
+        const proofEncoded = ethers.AbiCoder.defaultAbiCoder().encode(['bytes32[]'], [proof]);
+        return Promise.resolve(proofEncoded);
     }
 }
 
