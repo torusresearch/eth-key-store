@@ -13,7 +13,9 @@
     "hardhat": "^2.17.1"
   },
   "dependencies": {
+    "@guildofweavers/galois": "^0.4.22",
     "@openzeppelin/contracts": "^4.9.3",
-    "@openzeppelin/merkle-tree": "^1.0.5"
+    "@openzeppelin/merkle-tree": "^1.0.5",
+    "ffjavascript": "^0.2.60"
   }
 }
