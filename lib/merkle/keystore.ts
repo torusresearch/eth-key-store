@@ -6,7 +6,7 @@ import { ethers } from "hardhat";
 
 export class MerkleKeyStoreFactory implements KeyStoreFactory {
     async deploy(pub_keys: PubKey[], runner: ContractRunner): Promise<KeyStore> {
-        const ksFactory = await ethers.getContractFactory("MerkleKeyStore");
+        const ksFactory = new MerkleKeyStore__factory();
         const t = MerkleKeyStore.computeTree(pub_keys);
         const ksContract = await ksFactory.deploy(t.root);
 
