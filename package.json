@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
+    "compile": "hardhat compile",
     "test": "hardhat test"
   },
   "author": "",

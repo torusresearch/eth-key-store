@@ -4,10 +4,10 @@ This project explores how key stores can be represented succinctly on-chain.
 
 ## Development
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+```bash
+# Compile contracts (force recompilation)
+npm run compile -- --force
+
+# Run tests (measure gas)
+REPORT_GAS=true npm run test
 ```
