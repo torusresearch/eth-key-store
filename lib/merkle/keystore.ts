@@ -1,17 +1,17 @@
-import { BytesLike, ContractRunner } from "ethers";
+import { BytesLike, ContractRunner, Signer } from "ethers";
 import { EthAddress, KeyStore, KeyStoreFactory, PubKey } from "../keystore";
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 import { MerkleKeyStore__factory, MerkleKeyStore as MerkleKeyStore__contract } from "../../typechain-types";
 import { ethers } from "hardhat";
 
 export class MerkleKeyStoreFactory implements KeyStoreFactory {
-    async deploy(pub_keys: PubKey[], runner: ContractRunner): Promise<KeyStore> {
-        const ksFactory = new MerkleKeyStore__factory();
+    async deploy(pub_keys: PubKey[], signer: Signer): Promise<KeyStore> {
+        const ksFactory = new MerkleKeyStore__factory(signer);
         const t = MerkleKeyStore.computeTree(pub_keys);
         const ksContract = await ksFactory.deploy(t.root);
 
         const ksAddr = await ksContract.getAddress();
-        const ks = new MerkleKeyStore(ksAddr, pub_keys, runner);
+        const ks = new MerkleKeyStore(ksAddr, pub_keys, signer);
         return ks;
     }
 
