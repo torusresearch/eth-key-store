@@ -1,4 +1,4 @@
-import { Scalar, buildBn128 } from 'ffjavascript';
+import { buildBn128 } from 'ffjavascript';
 import { expect } from "chai";
 
 describe("Commit", function () {
@@ -54,7 +54,7 @@ describe("Commit", function () {
         }
     });
 
-    it.only("shoud do group operations", async () => {
+    it("shoud do group operations", async () => {
         const Fr = bn128.Fr;
         const G1 = bn128.G1;
         const G2 = bn128.G2;
@@ -78,8 +78,6 @@ describe("Commit", function () {
             const x = b[0];
             const y = b[1];
             const z = b[2];
-            console.log(`b = ${Object.getOwnPropertyNames(b)}`);
-            console.log(`x, y, z = ${x}, ${y}, ${z}`);
         }
     });
 

@@ -11,12 +11,16 @@ export function lagrangePolynomial(f: FiniteField, x: bigint[], y: bigint[]): bi
 }
 
 function basisPolynomial(f: FiniteField, x: bigint[], i: number): Polynom {
-    const zero = f.newVector(0);
-    return x.reduce((acc, xi, i) => {
-        const num = f.newVectorFrom([f.neg(xi), 1n]);
-        const denom = f.sub(x[i], xi);
+    const one = f.newVectorFrom([1n]);
+    const p = x.reduce((acc, xj, j) => {
+        if (j == i) {
+            return acc;
+        }
+        const num = f.newVectorFrom([f.neg(xj), 1n]);
+        const denom = f.sub(x[i], xj);
         const denomInv = f.inv(denom);
         const pi = f.mulPolyByConstant(num, denomInv);
         return f.mulPolys(acc, pi);
-    }, zero);
+    }, one);
+    return p;
 }
